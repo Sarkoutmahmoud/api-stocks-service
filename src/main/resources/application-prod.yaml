@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:
+    username: ${safe.username}
+    password: ${safe.password}
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      connection-timeout: 2000
+      minimum-idle: 5
+      maximum-pool-size: 12
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
+# Disabling open api docs for production
+springdoc:
+  api-docs:
+    enabled: false

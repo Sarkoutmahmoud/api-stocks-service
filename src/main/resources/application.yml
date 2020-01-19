@@ -1,0 +1,24 @@
+
+#spring DB configuration
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:devdb
+    username: sa
+    password: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+
+#logging configuration
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+    nl:
+      mahmoud: debug
