@@ -2,7 +2,6 @@ package nl.mahmoud.sarkout.integration.glue;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import lombok.val;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Map;
@@ -19,10 +18,10 @@ public class ContextGlue extends AbstractGlue {
     @And("^the response contains$")
     public void theResponseContains(Map<String, String> parameters) {
         for (Map.Entry<String, String> input : parameters.entrySet()) {
-            val expectedFieldName = input.getKey();
-            val expectedFieldValue = input.getValue();
+            String expectedFieldName = input.getKey();
+            String expectedFieldValue = input.getValue();
 
-            val actualValue = scenarioContext.getResponseValue(expectedFieldName);
+            String actualValue = scenarioContext.getResponseValue(expectedFieldName);
 
             if (actualValue == null) {
                 fail("Field '" + expectedFieldName + "' was null");

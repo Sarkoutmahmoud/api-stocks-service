@@ -2,7 +2,6 @@ package nl.mahmoud.sarkout.integration.glue;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import lombok.val;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.HashMap;
@@ -23,8 +22,8 @@ public class HealthGlue extends AbstractGlue {
 
     @And("^the health response contains no details$")
     public void theHealthResponseContainsNoDetails() {
-        val details = scenarioContext.getResponseValue("details", HashMap.class);
-        val containsAny = containsDiskSpaceStatus(details) || containsDataSourceStatus(details);
+        HashMap<String, String> details = scenarioContext.getResponseValue("details", HashMap.class);
+        boolean containsAny = containsDiskSpaceStatus(details) || containsDataSourceStatus(details);
         Assertions.assertFalse(containsAny);
     }
 

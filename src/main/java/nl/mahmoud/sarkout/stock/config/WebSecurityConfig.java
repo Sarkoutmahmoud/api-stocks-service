@@ -43,7 +43,7 @@ public class WebSecurityConfig {
         return http.authorizeRequests()
                    //Allow any calls to the Health endpoints.
                    .antMatchers("/actuator/health").permitAll()
-                   .antMatchers("/scopes/**").permitAll()
+                   .antMatchers("/stocks/**").permitAll()
 
                    //do not allow any other calls
                    .anyRequest().denyAll().and()
