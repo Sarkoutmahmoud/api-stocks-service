@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class StocksGlue extends AbstractGlue {
 
-    public static final ZonedDateTime DATE_TIME = ZonedDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC"));
+    private static final ZonedDateTime DATE_TIME = ZonedDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC"));
 
     @When("I request all the stocks from the application")
     public void iRequestAllTheStocksFromTheApplication() {

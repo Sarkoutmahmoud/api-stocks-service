@@ -1,10 +1,8 @@
 package nl.mahmoud.sarkout.stock.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import lombok.val;
 import nl.mahmoud.sarkout.stock.models.api.request.CreateStockRequest;
 import nl.mahmoud.sarkout.stock.models.api.response.ErrorResponse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -35,20 +33,19 @@ class ExceptionAdviceTest {
     @Test
     void handleTypeMismatch() {
 
-        val invalid = new TypeMismatchException("inval", CreateStockRequest.class);
+        TypeMismatchException  invalid = new TypeMismatchException("inval", CreateStockRequest.class);
 
-        val objectResponseEntity = classUnderTest.handleTypeMismatch(invalid, headers, httpStatus, request);
+        ResponseEntity objectResponseEntity = classUnderTest.handleTypeMismatch(invalid, headers, httpStatus, request);
 
         assertEquals(HttpStatus.BAD_REQUEST, objectResponseEntity.getStatusCode());
-        Assertions
-            .assertEquals("Invalid input supplied.", ((ErrorResponse) objectResponseEntity.getBody()).getMessage());
+        assertEquals("Invalid input supplied.", ((ErrorResponse) objectResponseEntity.getBody()).getMessage());
     }
 
     @Test
     void handleHttpMessageNotReadable() {
         var ex = new HttpMessageNotReadableException("");
 
-        val objectResponseEntity = classUnderTest.handleHttpMessageNotReadable(ex, headers, httpStatus, request);
+        var objectResponseEntity = classUnderTest.handleHttpMessageNotReadable(ex, headers, httpStatus, request);
 
         assertEquals(HttpStatus.BAD_REQUEST, objectResponseEntity.getStatusCode());
         assertEquals("Invalid input supplied in request body.", ((ErrorResponse) objectResponseEntity.getBody()).getMessage());
