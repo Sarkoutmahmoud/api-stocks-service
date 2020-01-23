@@ -8,10 +8,10 @@ USE prod;
 
 CREATE TABLE IF NOT EXISTS prod.stock_entry
 (
-    id              integer (100) NOT NULL,
+    id              INTEGER (100) NOT NULL,
     stock_id        VARCHAR(100) NOT NULL,
     current_price   INTEGER (100) NULL,
-    time_of_entry   DATE  NULL,
+    time_of_entry   TIMESTAMP (6)  NULL,
     PRIMARY KEY (id)
 );
 
@@ -20,8 +20,12 @@ CREATE TABLE IF NOT EXISTS prod.stock_entry
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS prod.stock
 (
-    id    integer (100)  NOT NULL,
+    id    INTEGER (100)  NOT NULL,
     name_stock  VARCHAR(100)  NULL,
     PRIMARY KEY (id)
 );
+
+ALTER TABLE prod.stock_entry
+    ADD FOREIGN KEY (STOCK_ID)
+        REFERENCES STOCK(ID)
 

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.annotation.Nonnull;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Slf4j
@@ -77,13 +79,12 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
      */
     @Override
     @NonNull
-    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+    public ResponseEntity<Object> handleMethodArgumentNotValid(@Nonnull MethodArgumentNotValidException ex,
                                                                @NonNull HttpHeaders headers,
                                                                @NonNull HttpStatus status,
                                                                @NonNull WebRequest request) {
         log.warn(INVALID_INPUT_SUPPLIED_MESSAGE, ex.getMessage(), ex);
-        if (ex.getBindingResult().getFieldError() != null && ex.getBindingResult().getFieldError()
-            .getDefaultMessage() != null) {
+        if (ex.getBindingResult().getFieldError() != null && ex.getBindingResult().getFieldError().getDefaultMessage() != null) {
             return ResponseEntity.badRequest().body(new ErrorResponse(ex.getBindingResult().getFieldError().getDefaultMessage()));
         }
         return ResponseEntity.badRequest().body(new ErrorResponse("Invalid input supplied in request body."));

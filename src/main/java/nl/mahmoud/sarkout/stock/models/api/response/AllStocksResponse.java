@@ -7,5 +7,5 @@ import java.util.List;
 
 @Value
 public class AllStocksResponse {
-    List<Stock> stocks;
+    private final List<Stock> stocks;
 }

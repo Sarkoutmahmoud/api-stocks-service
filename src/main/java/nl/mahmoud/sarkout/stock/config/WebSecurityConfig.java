@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * The class is used to implement basic spring security to access the different endpoints through basic authentication.
+ * The class is used to implement basic spring security.
  */
 @Configuration
 @EnableWebSecurity
@@ -20,10 +20,21 @@ public class WebSecurityConfig {
         return new WebSecurityConfigurerAdapter() {
             @Override
             public void configure(HttpSecurity http) throws Exception {
-                defaultSecurity(http).authorizeRequests()
-                                     .antMatchers("/h2-console/**").permitAll()
-                                     .antMatchers("/v3/api-docs", "/swagger-ui**/**").permitAll()
-                                     .and().headers().frameOptions().sameOrigin();
+                http.authorizeRequests()
+                        .antMatchers("/h2-console/**").permitAll()
+                        .antMatchers("/v3/api-docs", "/swagger-ui**/**").permitAll()
+                        .antMatchers("/actuator/health").permitAll()
+                        .antMatchers("/api/stocks", "/api/stocks/*/history", "/api/stocks/*").permitAll()
+                        //do not allow any other calls
+                        .anyRequest().denyAll().and()
+                        //enable basic authentication
+                        .httpBasic().and()
+                        //disable csrf
+
+                        //for h2 console
+                        .headers().frameOptions().sameOrigin()
+                .and()
+                .csrf().disable();
             }
         };
     }
@@ -34,22 +45,18 @@ public class WebSecurityConfig {
         return new WebSecurityConfigurerAdapter() {
             @Override
             public void configure(HttpSecurity http) throws Exception {
-                defaultSecurity(http);
+                //Allow any calls to the Health endpoints.
+                http.authorizeRequests()
+                        .antMatchers("/actuator/health").permitAll()
+                        .antMatchers("/api/stocks", "/api/stocks/*/history").permitAll()
+
+                        //do not allow any other calls
+                        .anyRequest().denyAll().and()
+                        //enable basic authentication
+                        .httpBasic().and()
+                        //disable csrf
+                        .csrf().disable();
             }
         };
-    }
-
-    private HttpSecurity defaultSecurity(HttpSecurity http) throws Exception {
-        return http.authorizeRequests()
-                   //Allow any calls to the Health endpoints.
-                   .antMatchers("/actuator/health").permitAll()
-                   .antMatchers("/stocks/**").permitAll()
-
-                   //do not allow any other calls
-                   .anyRequest().denyAll().and()
-                   //enable basic authentication
-                   .httpBasic().and()
-                   //disable csrf
-                   .csrf().disable();
     }
 }

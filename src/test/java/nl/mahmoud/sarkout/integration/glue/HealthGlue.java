@@ -5,7 +5,6 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class HealthGlue extends AbstractGlue {
 
@@ -17,21 +16,14 @@ public class HealthGlue extends AbstractGlue {
 
     @And("^the health check returns ([A-Z]+)$")
     public void theHealthCheckReturnsUP(String status) {
-        Assertions.assertEquals(scenarioContext.getResponseValue("status", String.class), status);
+        Assertions.assertEquals(scenarioContext.getResponse().getBody().get("status"), status);
     }
 
     @And("^the health response contains no details$")
     public void theHealthResponseContainsNoDetails() {
-        HashMap<String, String> details = scenarioContext.getResponseValue("details", HashMap.class);
-        boolean containsAny = containsDiskSpaceStatus(details) || containsDataSourceStatus(details);
-        Assertions.assertFalse(containsAny);
+        HashMap<String, Object> details = (HashMap<String, Object>) scenarioContext.getResponse().getBody().get("details");
+         Assertions.assertFalse(details != null && ( details.containsKey("diskSpace") || details.containsKey("dataSource")));
     }
 
-    private boolean containsDiskSpaceStatus(Map details) {
-        return details != null && details.containsKey("diskSpace");
-    }
 
-    private boolean containsDataSourceStatus(Map details) {
-        return details != null && details.containsKey("dataSource");
-    }
 }

@@ -1,7 +1,11 @@
 package nl.mahmoud.sarkout.stock.models.api.request;
 
-public class CreateStockRequest {
+import lombok.Value;
 
-    private String name;
+@Value
+public final class CreateStockRequest {
+
+    private final String name;
+    private final long price;
 
 }

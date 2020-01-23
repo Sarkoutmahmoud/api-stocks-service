@@ -12,7 +12,7 @@ public class ContextGlue extends AbstractGlue {
 
     @Then("^status code \"([^\"]*)\" is returned$")
     public void statusCodeIsReturned(String statusCode) {
-        Assertions.assertEquals(Integer.parseInt(statusCode), scenarioContext.getStatusCode());
+        Assertions.assertEquals(Integer.parseInt(statusCode), scenarioContext.getResponse().getStatus());
     }
 
     @And("^the response contains$")
@@ -21,7 +21,7 @@ public class ContextGlue extends AbstractGlue {
             String expectedFieldName = input.getKey();
             String expectedFieldValue = input.getValue();
 
-            String actualValue = scenarioContext.getResponseValue(expectedFieldName);
+            Object actualValue = scenarioContext.getResponse().getBody().get(expectedFieldName);
 
             if (actualValue == null) {
                 fail("Field '" + expectedFieldName + "' was null");

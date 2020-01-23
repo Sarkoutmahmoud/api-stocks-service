@@ -1,10 +1,7 @@
 package nl.mahmoud.sarkout.stock.config;
 
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,30 +17,20 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI api() {
         return new OpenAPI()
-            .info(info())
-            .tags(tags())
-            .security(Collections.singletonList(securityRequirement()))
-            .components(new Components().addSecuritySchemes("basicAuth", securityScheme()));
+                .info(info())
+                .tags(tags());
     }
 
     private Info info() {
         return new Info()
-            .title(API_STOCK_SERVICE)
-            .description("This service is used to retrieve, update and insert stock data.")
-            .version("1.0.0");
-    }
-
-    private SecurityScheme securityScheme() {
-        return new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic");
-    }
-
-    private SecurityRequirement securityRequirement() {
-        return new SecurityRequirement().addList("basicAuth");
+                .title(API_STOCK_SERVICE)
+                .description("This service is used to retrieve, update and insert stock data.")
+                .version("1.0.0");
     }
 
     private List<Tag> tags() {
         final Tag tag = new Tag().name(API_STOCK_SERVICE)
-            .description("All requests related to the Stocks service");
+                .description("All requests related to the Stocks service");
         return Collections.singletonList(tag);
     }
 
