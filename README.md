@@ -1,4 +1,4 @@
-# Api Stocks service
+# Stocks service
  
 ## Introduction 
 This application is used to showcase my back end development skills for any given company.

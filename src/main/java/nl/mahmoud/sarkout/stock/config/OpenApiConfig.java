@@ -12,7 +12,7 @@ import java.util.List;
 @Configuration
 public class OpenApiConfig {
 
-    private static final String API_STOCK_SERVICE = "API Stock Service";
+    private static final String STOCK_SERVICE = "Stock Service";
 
     @Bean
     public OpenAPI api() {
@@ -23,13 +23,13 @@ public class OpenApiConfig {
 
     private Info info() {
         return new Info()
-                .title(API_STOCK_SERVICE)
+                .title(STOCK_SERVICE)
                 .description("This service is used to retrieve, update and insert stock data.")
                 .version("1.0.0");
     }
 
     private List<Tag> tags() {
-        final Tag tag = new Tag().name(API_STOCK_SERVICE)
+        final Tag tag = new Tag().name(STOCK_SERVICE)
                 .description("All requests related to the Stocks service");
         return Collections.singletonList(tag);
     }
