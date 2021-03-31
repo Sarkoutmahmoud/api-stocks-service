@@ -25,7 +25,7 @@
 
         <!-- Security overrides -->
         <jackson.version>2.10.0.pr3</jackson.version>
-        <guava.version>28.2-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <jackson-databind.version>2.10.0.2</jackson-databind.version>
         <logback.version>1.2.3</logback.version>
         <logback-ext-spring.version>0.1.5</logback-ext-spring.version>
